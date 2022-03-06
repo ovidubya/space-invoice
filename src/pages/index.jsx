@@ -15,7 +15,7 @@ const format = (num) => new Intl.NumberFormat().format(num, "en-US");
 
 const Main = styled.main`
   margin: 35px;
-  height: 100vh;
+  height: 90vh;
 `;
 
 const Hr = styled.hr`
