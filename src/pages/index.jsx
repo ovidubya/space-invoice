@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
-import Image from "next/image";
 import styled, { css } from "styled-components";
 import { space, flexbox, style } from "styled-system";
 import {
@@ -198,7 +198,7 @@ export default function Home() {
       <Main>
         <Header>
           <section>
-            <Image
+            <img
               onDoubleClick={openModal}
               src="/spacelogo.png"
               alt="logo"
