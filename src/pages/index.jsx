@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
 import styled, { css } from "styled-components";
-import { space, flexbox, style } from "styled-system";
+import { space, flexbox } from "styled-system";
 import {
   ModalProvider,
   Modal,
   useModal,
   ModalTransition,
 } from "react-simple-hook-modal";
-import { cloneElement, useState } from "react";
+import { useState } from "react";
 import "react-simple-hook-modal/dist/styles.css";
 
 const format = (num) => new Intl.NumberFormat().format(num, "en-US");
@@ -129,7 +129,9 @@ const InvoiceContainer = styled.section`
   }
 `;
 const InvoiceTotalContainer = styled.section`
+  display: flex;
   width: 92%;
+  justify-content: flex-end;
 `;
 
 const Hours = styled.button`
@@ -157,6 +159,12 @@ const CloseButton = styled.button`
 const Input = styled.input`
   border: 1px solid black;
   padding: 10px;
+`;
+
+const PaymentOptions = styled.div`
+  ${space}
+  ${flexbox}
+  width: 90%;
 `;
 
 export default function Home() {
@@ -287,6 +295,7 @@ export default function Home() {
               Total
             </Text>
             <Text size={23}>
+              $
               {format(
                 items.reduce(function (acc, current) {
                   return acc + current.price;
@@ -295,6 +304,9 @@ export default function Home() {
             </Text>
           </Flex>
         </InvoiceTotalContainer>
+        <PaymentOptions mt={100} ml="auto" mr="auto">
+          <Text size={20}>Payments can be made to </Text>
+        </PaymentOptions>
         <ModalProvider>
           <Modal
             id="any-unique-identifier"
