@@ -310,7 +310,7 @@ export default function Home() {
             Payments can be made on Zelle to:{" "}
           </Text>
           <Flex alignItems="center">
-            <Text size={20} bold>
+            <Text size={20} bold mr={2}>
               Name:
             </Text>
             <Text size={20} color="#74b9ff">
@@ -318,7 +318,7 @@ export default function Home() {
             </Text>
           </Flex>
           <Flex alignItems="center">
-            <Text size={20} bold>
+            <Text size={20} bold mr={2}>
               Email:{" "}
             </Text>
             <Text size={20} color="#74b9ff">
