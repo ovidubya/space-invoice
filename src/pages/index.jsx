@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
 import styled, { css } from "styled-components";
-import { space, flexbox } from "styled-system";
+import { space, flexbox, color } from "styled-system";
 import {
   ModalProvider,
   Modal,
@@ -47,6 +47,7 @@ const TableHeader = styled.section`
 const Text = styled.div`
   ${flexbox}
   ${space}
+  ${color}
   font-family: "Quicksand", sans-serif;
   font-size: ${(props) => props.size || 16}px;
   ${(props) =>
@@ -305,7 +306,25 @@ export default function Home() {
           </Flex>
         </InvoiceTotalContainer>
         <PaymentOptions mt={100} ml="auto" mr="auto">
-          <Text size={20}>Payments can be made to </Text>
+          <Text mb={3} size={22}>
+            Payments can be made on Zelle to:{" "}
+          </Text>
+          <Flex alignItems="center">
+            <Text size={20} bold>
+              Name:
+            </Text>
+            <Text size={20} color="#74b9ff">
+              Space Organizing
+            </Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text size={20} bold>
+              Email:{" "}
+            </Text>
+            <Text size={20} color="#74b9ff">
+              findyourspacechicago@gmail.com{" "}
+            </Text>
+          </Flex>
         </PaymentOptions>
         <ModalProvider>
           <Modal
