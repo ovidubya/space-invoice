@@ -1,0 +1,18 @@
+{
+    "name": "Space Orgranzing Inovice Generator",
+    "short_name": "Space Invoice Generator",
+    "theme_color": "#ffffff",
+    "background_color": "#004740",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "spacelogo.png",
+            "sizes": "864 × 875",
+            "type": "image/png"
+        }
+    ],
+    "splash_pages": null
+}
