@@ -173,7 +173,7 @@ export default function Home() {
   const [items, setItems] = useState([
     {
       name: "Consultation",
-      price: 0,
+      price: 50,
     },
   ]);
   const [selectedItem, setSelectedItem] = useState("");
@@ -185,11 +185,11 @@ export default function Home() {
 
   const addItem = ({ type }) => {
     if (type === "hours") {
-      let name = `Organzing Hours - ${numberOfHours} Hours (Rate $ ${hoursRate})`;
+      let name = `Organzing - ${numberOfHours} Hours (Rate $ ${hoursRate})`;
       let price = +numberOfHours * +hoursRate;
       setItems([...items, { name, price }]);
     } else if (type === "store") {
-      let name = `Store - ${storeName}`;
+      let name = `${storeName}`;
       let price = +storePrice;
       setItems([...items, { name, price }]);
     }
@@ -224,7 +224,7 @@ export default function Home() {
               Space Organzing
             </Text>
             <Text light size={20}>
-              findyourspacechicago@gmail.com
+              INVOICE
             </Text>
           </section>
         </Header>
@@ -275,18 +275,6 @@ export default function Home() {
               </Row>
             );
           })}
-          {/* <Row>
-            <Name>Consulation</Name>
-            <Price>$0.00</Price>
-          </Row>
-          <Row>
-            <Name>Organzing Hours - 4 Hours (Rate $50)</Name>
-            <Price>$200.00</Price>
-          </Row>
-          <Row>
-            <Name>Container Store</Name>
-            <Price>$2,230.00</Price>
-          </Row> */}
         </InvoiceContainer>
         <br />
         <Hr width="90%" />
