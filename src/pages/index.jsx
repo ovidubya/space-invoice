@@ -14,7 +14,7 @@ import "react-simple-hook-modal/dist/styles.css";
 const format = (num) => new Intl.NumberFormat().format(num, "en-US");
 
 const Main = styled.main`
-  margin: 35px;
+  margin: 15px;
   height: 90vh;
 `;
 
@@ -41,7 +41,7 @@ const TableHeader = styled.section`
   ${flexbox}
   ${space}
   width: 90%;
-  margin: 50px auto 0 auto;
+  margin: 30px auto 0 auto;
 `;
 
 const Text = styled.div`
@@ -165,23 +165,24 @@ const Input = styled.input`
 const PaymentOptions = styled.div`
   ${space}
   ${flexbox}
-  width: 90%;
 `;
 
 export default function Home() {
   const { isModalOpen, openModal, closeModal } = useModal();
-  const [items, setItems] = useState([
-    {
-      name: "Consultation",
-      price: 50,
-    },
-  ]);
+  const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState("");
   const [storeName, setStoreName] = useState("");
   const [storePrice, setStorePrice] = useState("");
 
   const [numberOfHours, setNumberOfHours] = useState(0);
   const [hoursRate, setHoursRate] = useState(0);
+
+  const reset = () => {
+    setStoreName("");
+    setStorePrice("");
+    setNumberOfHours(0);
+    setHoursRate(0);
+  };
 
   const addItem = ({ type }) => {
     if (type === "hours") {
@@ -194,6 +195,7 @@ export default function Home() {
       setItems([...items, { name, price }]);
     }
     closeModal();
+    reset();
   };
 
   return (
@@ -211,8 +213,8 @@ export default function Home() {
               onDoubleClick={openModal}
               src="/spacelogo.png"
               alt="logo"
-              width={80}
-              height={80}
+              width={70}
+              height={70}
             />
           </section>
           <section
@@ -233,27 +235,30 @@ export default function Home() {
             <Text light size={20}>
               Name:
             </Text>
-            <Text
+            <input type={"text"} />
+            {/* <Text
               suppressContentEditableWarning={true}
               contentEditable={true}
               light
               size={18}
             >
               John Doe
-            </Text>
+            </Text> */}
           </Flex>
           <Flex alignItems="center">
             <Text light size={20}>
               Date:
             </Text>
-            <Text
+            <input type="date" />
+            <input type="date" />
+            {/* <Text
               suppressContentEditableWarning={true}
               contentEditable={true}
               light
               size={18}
             >
               01/12/2020 - 01/30/2020
-            </Text>
+            </Text> */}
           </Flex>
         </TableHeader>
         <br />
@@ -293,24 +298,24 @@ export default function Home() {
             </Text>
           </Flex>
         </InvoiceTotalContainer>
-        <PaymentOptions mt={100} ml="auto" mr="auto">
-          <Text mb={3} size={22}>
-            Payments can be made on Zelle to:{" "}
+        <PaymentOptions mt={30}>
+          <Text mb={3} size={16}>
+            Payments can be made on Zelle
           </Text>
           <Flex alignItems="center">
-            <Text size={20} bold mr={2}>
+            <Text size={16} bold mr={2}>
               Name:
             </Text>
-            <Text size={20} color="#74b9ff">
+            <Text size={16} color="#74b9ff">
               Space Organizing
             </Text>
           </Flex>
           <Flex alignItems="center">
-            <Text size={20} bold mr={2}>
+            <Text size={16} bold mr={2}>
               Email:{" "}
             </Text>
-            <Text size={20} color="#74b9ff">
-              findyourspacechicago@gmail.com{" "}
+            <Text size={16} color="#74b9ff">
+              findyourspacechicago@gmail.com
             </Text>
           </Flex>
         </PaymentOptions>
