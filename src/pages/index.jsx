@@ -125,8 +125,8 @@ const InvoiceContainer = styled.section`
     &:not(:first-child) {
       margin-bottom: 12px;
     }
-    padding-left: 30px;
-    padding-right: 30px;
+    /* padding-left: 30px;
+    padding-right: 30px; */
   }
 `;
 const InvoiceTotalContainer = styled.section`
@@ -156,6 +156,13 @@ const CloseButton = styled.button`
   cursor: pointer;
   color: white;
 `;
+const ClearButton = styled.button`
+  padding: 10px 20px;
+  background-color: #34495e;
+  border: 0;
+  cursor: pointer;
+  color: white;
+`;
 
 const Input = styled.input`
   border: 1px solid black;
@@ -167,9 +174,40 @@ const PaymentOptions = styled.div`
   ${flexbox}
 `;
 
+// const Table = styled.table`
+//   width: 100%;
+//   display: table;
+//   border-collapse: collapse;
+//   border-spacing: 0;
+//   border: none;
+// `;
+// const THead = styled.thead`
+//   color: rgba(0,0,0,0.6);
+// `
+// const Tr = styled.tr`
+//   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+// `
+// const Tbody = styled.tbody``;
+// const Td = styled.td`
+//   display: table-cell;
+//   text-align: left;
+//   vertical-align: middle;
+//   border-radius: 2px;
+//   padding: 15px 10px
+// `
+
+const getItemsFromLocalStorage = () => {
+  if (typeof window !== "undefined") {
+    const items = localStorage.getItem("items");
+    if (items) {
+      return JSON.parse(items);
+    }
+  }
+  return [];
+};
 export default function Home() {
   const { isModalOpen, openModal, closeModal } = useModal();
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(getItemsFromLocalStorage());
   const [selectedItem, setSelectedItem] = useState("");
   const [storeName, setStoreName] = useState("");
   const [storePrice, setStorePrice] = useState("");
@@ -185,15 +223,19 @@ export default function Home() {
   };
 
   const addItem = ({ type }) => {
+    let newItems = [...items];
     if (type === "hours") {
-      let name = `Organzing - ${numberOfHours} Hours (Rate $ ${hoursRate})`;
+      let name = `Organzing - ${numberOfHours} Hours ($${hoursRate}/hr)`;
       let price = +numberOfHours * +hoursRate;
-      setItems([...items, { name, price }]);
+      newItems = [...items, { name, price }];
+      setItems(newItems);
     } else if (type === "store") {
       let name = `${storeName}`;
       let price = +storePrice;
-      setItems([...items, { name, price }]);
+      newItems = [...items, { name, price }];
+      setItems(newItems);
     }
+    localStorage.setItem("items", JSON.stringify(newItems));
     closeModal();
     reset();
   };
@@ -263,24 +305,63 @@ export default function Home() {
         </TableHeader>
         <br />
         <Hr width="90%" />
-        <InvoiceContainer>
-          <Row>
-            <Name size={18} bold>
-              Item
-            </Name>
-            <Price size={18} bold>
-              Amount
-            </Price>
-          </Row>
-          {items.map((item, index) => {
-            return (
-              <Row key={index}>
-                <Name>{item.name}</Name>
-                <Price>${item.price}</Price>
-              </Row>
-            );
-          })}
-        </InvoiceContainer>
+        
+        <table style={{
+          width: '90%',
+          display: 'table',
+          borderCollapse: 'collapse',
+          borderSpacing: 0,
+          margin: '0 auto'
+        }}>
+          <thead style={{
+            color: 'rgba(0,0,0,0.6)'
+          }}>
+            <tr style={{
+              borderBottom: '1px solid rgba(0,0,0,0.12)'
+            }}>
+              <th style={{
+                textAlign: 'left',
+                padding: '15px 10px',                    
+                display: 'table-cell',
+                verticalAlign: 'middle',
+                borderRadius: '2px',
+                border: 'none'
+              }}>Item</th>
+              <th style={{
+                textAlign: 'left',
+                padding: '15px 10px',
+                display: 'table-cell',
+                verticalAlign: 'middle',
+                borderRadius: '2px',
+                border: 'none'
+              }}>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item, index) => {
+              return (<tr style={{
+                borderBottom: '1px solid rgba(0,0,0,0.12)'
+              }} key={index}>
+                <td style={{
+                  textAlign: 'left',
+                  padding: '15px 10px',
+                  display: 'table-cell',
+                  verticalAlign: 'middle',
+                  borderRadius: '2px',
+                  border: 'none'
+                }}>{item.name}</td>
+                <td style={{
+                  textAlign: 'left',
+                  padding: '15px 10px',
+                  display: 'table-cell',
+                  verticalAlign: 'middle',
+                  borderRadius: '2px',
+                  border: 'none'
+                }}>${item.price}</td>
+              </tr>);
+            })}
+          </tbody>
+        </table>
         <br />
         <Hr width="90%" />
         <InvoiceTotalContainer>
@@ -347,6 +428,14 @@ export default function Home() {
             >
               Close
             </CloseButton>
+            <ClearButton
+              onClick={(e) => {
+                localStorage.clear();
+                window.location.reload()
+              }}
+            >
+              Clear all items
+            </ClearButton>
             <div>
               {selectedItem === "store" && (
                 <div>
